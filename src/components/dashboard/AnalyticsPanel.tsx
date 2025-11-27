@@ -1,5 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
-import { Zap, AlertTriangle, TrendingUp, Battery } from "lucide-react";
+import { Zap, AlertTriangle, Battery } from "lucide-react";
 import { 
   CandidateSite, 
   calculateEffectivePower,
@@ -28,8 +28,6 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
     },
   ];
 
-  const deficitPercentage = ((yangonHub.demandMWh - (powerCalc?.deliveredMWh || DAILY_GENERATION_TARGET)) / yangonHub.demandMWh * 100).toFixed(1);
-
   // Top load centers for comparison
   const topLoadCenters = loadCenters.slice(0, 5).map(lc => ({
     name: lc.name.split(" ")[0],
@@ -39,7 +37,7 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
   return (
     <div className="h-full p-6 space-y-6 overflow-y-auto">
       {/* Summary Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <div className="dashboard-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Battery className="w-4 h-4 text-primary" />
@@ -56,17 +54,6 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
           </div>
           <div className="stat-value text-accent">7,200</div>
           <div className="text-xs text-muted-foreground">MWh</div>
-        </div>
-        
-        <div className="dashboard-card p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="w-4 h-4 text-success" />
-            <span className="stat-label">Efficiency</span>
-          </div>
-          <div className="stat-value text-success">
-            {powerCalc?.efficiency || "--"}%
-          </div>
-          <div className="text-xs text-muted-foreground">to Yangon</div>
         </div>
       </div>
 
@@ -110,14 +97,6 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
           </ResponsiveContainer>
         </div>
 
-        <div className="mt-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
-          <p className="text-sm text-destructive font-medium">
-            Power Deficit: {deficitPercentage}% of Yangon demand unmet
-          </p>
-          <p className="text-xs text-muted-foreground mt-1">
-            Highlights the urgent need for additional generation capacity
-          </p>
-        </div>
       </div>
 
       {/* Regional Demand Distribution */}

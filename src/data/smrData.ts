@@ -67,13 +67,13 @@ export interface LoadCenter {
 }
 
 export const loadCenters: LoadCenter[] = [
-  { id: "yangon", name: "Yangon (Thilawa)", lat: 16.63, lng: 96.27, demandMWh: 49511, priority: 1 },
-  { id: "mandalay", name: "Mandalay", lat: 21.98, lng: 96.08, demandMWh: 48851, priority: 2 },
-  { id: "naypyidaw", name: "Naypyidaw", lat: 19.76, lng: 96.07, demandMWh: 2902, priority: 3 },
-  { id: "mawlamyine", name: "Mawlamyine", lat: 16.49, lng: 97.63, demandMWh: 1860, priority: 4 },
-  { id: "bago", name: "Bago", lat: 17.32, lng: 96.47, demandMWh: 1500, priority: 5 },
-  { id: "pathein", name: "Pathein", lat: 16.78, lng: 94.74, demandMWh: 1322, priority: 6 },
-  { id: "taunggyi", name: "Taunggyi", lat: 20.78, lng: 97.03, demandMWh: 580, priority: 7 },
+  { id: "yangon", name: "Yangon (Thilawa)", lat: 16.63, lng: 96.27, demandMWh: 2062, priority: 1 },
+  { id: "mandalay", name: "Mandalay", lat: 21.98, lng: 96.08, demandMWh: 2035.2, priority: 2 },
+  { id: "naypyidaw", name: "Naypyidaw", lat: 19.76, lng: 96.07, demandMWh: 120.9, priority: 3 },
+  { id: "mawlamyine", name: "Mawlamyine", lat: 16.49, lng: 97.63, demandMWh: 77.5, priority: 4 },
+  { id: "bago", name: "Bago", lat: 17.32, lng: 96.47, demandMWh: 62.5, priority: 5 },
+  { id: "pathein", name: "Pathein", lat: 16.78, lng: 94.74, demandMWh: 10.66, priority: 6 },
+  { id: "taunggyi", name: "Taunggyi", lat: 20.78, lng: 97.03, demandMWh: 24.167, priority: 7 },
 ];
 
 // Yangon Hub (primary destination)

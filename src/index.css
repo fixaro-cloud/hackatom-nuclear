@@ -221,3 +221,34 @@
   border: 3px solid hsl(var(--accent)) !important;
   box-shadow: 0 0 25px hsl(var(--accent) / 0.8) !important;
 }
+
+.leaflet-tooltip.map-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.leaflet-tooltip.map-label--transparent {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.leaflet-tooltip.map-label--fault {
+  background: rgba(15, 23, 42, 0.92);
+  color: hsl(210 40% 96%);
+  border-radius: 999px;
+  padding: 2px 6px;
+  border: 1px solid rgba(15, 23, 42, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.leaflet-tooltip.map-label--flood {
+  background: rgba(14, 165, 233, 0.2);
+  color: hsl(203 92% 94%);
+  border-radius: 8px;
+  padding: 2px 6px;
+  border: 1px solid rgba(14, 165, 233, 0.5);
+  box-shadow: 0 2px 6px rgba(14, 165, 233, 0.3);
+}

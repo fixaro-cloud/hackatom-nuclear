@@ -162,15 +162,10 @@ export function SiteDetailsSidebar({ site, onClose }: SiteDetailsSidebarProps) {
           Transmission to Yangon
         </h3>
         
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <div className="dashboard-card p-4 text-center">
             <div className="stat-value text-primary">{powerCalc.distanceKm}</div>
             <div className="stat-label">Distance (km)</div>
-          </div>
-          
-          <div className="dashboard-card p-4 text-center">
-            <div className="stat-value text-success">{powerCalc.efficiency}%</div>
-            <div className="stat-label">Efficiency</div>
           </div>
         </div>
 
