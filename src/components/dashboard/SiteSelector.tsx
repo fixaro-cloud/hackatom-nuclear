@@ -55,7 +55,7 @@ export function SiteSelector({ selectedSite, onSiteSelect }: SiteSelectorProps) 
         <div className="mt-3 p-2 bg-warning/10 border border-warning/20 rounded-lg flex items-start gap-2">
           <AlertTriangle className="w-4 h-4 text-warning mt-0.5 flex-shrink-0" />
           <p className="text-xs text-warning">
-            Consider Dawei for optimal seismic stability and SEZ infrastructure.
+            Consider Dawei for low seismic risk and SEZ infrastructure.
           </p>
         </div>
       )}

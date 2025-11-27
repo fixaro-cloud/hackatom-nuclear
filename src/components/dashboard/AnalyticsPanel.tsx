@@ -1,5 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
-import { Zap, AlertTriangle, Battery } from "lucide-react";
+import { Zap, AlertTriangle, Battery, TrendingUp } from "lucide-react";
 import { 
   CandidateSite, 
   calculateEffectivePower,
@@ -17,9 +17,14 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
 
   const supplyDemandData = [
     {
-      name: "SMR Output",
-      value: powerCalc?.deliveredMWh || DAILY_GENERATION_TARGET,
+      name: "Generated",
+      value: DAILY_GENERATION_TARGET,
       fill: "hsl(174, 72%, 46%)",
+    },
+    {
+      name: "Delivered (after T&D losses)",
+      value: powerCalc?.deliveredMWh || DAILY_GENERATION_TARGET,
+      fill: "hsl(142, 76%, 36%)",
     },
     {
       name: "Yangon Demand",
@@ -29,7 +34,7 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
   ];
 
   // Top load centers for comparison
-  const topLoadCenters = loadCenters.slice(0, 5).map(lc => ({
+  const topLoadCenters = loadCenters.slice(0, 7).map(lc => ({
     name: lc.name.split(" ")[0],
     demand: lc.demandMWh,
   }));
@@ -37,7 +42,7 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
   return (
     <div className="h-full p-6 space-y-6 overflow-y-auto">
       {/* Summary Stats */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         <div className="dashboard-card p-4">
           <div className="flex items-center gap-2 mb-2">
             <Battery className="w-4 h-4 text-primary" />
@@ -54,6 +59,17 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
           </div>
           <div className="stat-value text-accent">7,200</div>
           <div className="text-xs text-muted-foreground">MWh</div>
+        </div>
+        
+        <div className="dashboard-card p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <TrendingUp className="w-4 h-4 text-success" />
+            <span className="stat-label">T&D Efficiency</span>
+          </div>
+          <div className="stat-value text-success">
+            {powerCalc?.efficiency || "--"}%
+          </div>
+          <div className="text-xs text-muted-foreground">to Yangon</div>
         </div>
       </div>
 
@@ -102,7 +118,7 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
       {/* Regional Demand Distribution */}
       <div className="dashboard-card p-4">
         <h3 className="text-sm font-semibold text-foreground mb-4">
-          Regional Daily Demand (Top 5)
+          Regional Daily Demand (Top 7)
         </h3>
         
         <div className="space-y-3">

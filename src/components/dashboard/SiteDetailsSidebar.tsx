@@ -4,10 +4,10 @@ import {
   Activity, 
   Handshake, 
   Zap, 
-  TrendingUp,
   Shield,
   Factory,
-  X
+  X,
+  LucideIcon
 } from "lucide-react";
 import { 
   CandidateSite, 
@@ -81,7 +81,7 @@ export function SiteDetailsSidebar({ site, onClose }: SiteDetailsSidebarProps) {
         
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Seismic Stability</span>
+            <span className="text-sm text-muted-foreground">Seismic Risk</span>
             <span className={`text-sm font-semibold ${getSeismicColor(site.seismic)}`}>
               {site.seismic}
             </span>
@@ -122,30 +122,34 @@ export function SiteDetailsSidebar({ site, onClose }: SiteDetailsSidebarProps) {
         </h3>
         
         <div className="space-y-3">
-          {site.id === "dawei" && (
-            <>
-              <div className="dashboard-card p-3">
-                <div className="flex items-center gap-2 text-accent">
-                  <MapPin className="w-4 h-4" />
-                  <span className="text-sm font-medium">Dawei Special Economic Zone (SEZ)</span>
+          {site.economicFactors && site.economicFactors.map((factor, index) => {
+            const IconComponent: LucideIcon = 
+              factor.icon === "MapPin" ? MapPin :
+              factor.icon === "Handshake" ? Handshake :
+              factor.icon === "Factory" ? Factory :
+              factor.icon === "Zap" ? Zap :
+              Shield;
+            
+            const colorClass = 
+              factor.color === "accent" ? "text-accent" :
+              factor.color === "primary" ? "text-primary" :
+              factor.color === "success" ? "text-success" :
+              "text-warning";
+            
+            return (
+              <div key={index} className="dashboard-card p-3">
+                <div className={`flex items-center gap-2 ${colorClass}`}>
+                  <IconComponent className="w-4 h-4" />
+                  <span className="text-sm font-medium">{factor.title}</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Strategic deep-sea port with industrial infrastructure
+                  {factor.description}
                 </p>
               </div>
-              <div className="dashboard-card p-3">
-                <div className="flex items-center gap-2 text-primary">
-                  <Handshake className="w-4 h-4" />
-                  <span className="text-sm font-medium">Russian Technology Partnership</span>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  G2G agreement for SMR technology transfer
-                </p>
-              </div>
-            </>
-          )}
+            );
+          })}
           
-          {site.partnership && (
+          {site.partnership && !site.economicFactors?.some(f => f.title.includes("Partnership")) && (
             <div className="flex items-center gap-2 text-sm">
               <Handshake className="w-4 h-4 text-primary" />
               <span className="text-muted-foreground">Partnership:</span>
@@ -162,34 +166,42 @@ export function SiteDetailsSidebar({ site, onClose }: SiteDetailsSidebarProps) {
           Transmission to Yangon
         </h3>
         
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div className="dashboard-card p-4 text-center">
             <div className="stat-value text-primary">{powerCalc.distanceKm}</div>
             <div className="stat-label">Distance (km)</div>
+          </div>
+          
+          <div className="dashboard-card p-4 text-center">
+            <div className="stat-value text-success">{powerCalc.efficiency}%</div>
+            <div className="stat-label">T&D Efficiency</div>
           </div>
         </div>
 
         <div className="mt-4 dashboard-card p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-muted-foreground">SMR Output</span>
+            <span className="text-sm text-muted-foreground">Generated Power</span>
             <span className="text-sm font-mono text-foreground">{DAILY_GENERATION_TARGET.toLocaleString()} MWh</span>
           </div>
           <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-muted-foreground">T&D Losses</span>
+            <span className="text-sm font-mono text-warning">
+              {(DAILY_GENERATION_TARGET - powerCalc.deliveredMWh).toLocaleString()} MWh ({(100 - powerCalc.efficiency).toFixed(1)}%)
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Delivered Power</span>
             <span className="text-sm font-mono text-primary">{powerCalc.deliveredMWh.toLocaleString()} MWh</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Yangon Absorption</span>
-            <span className="text-sm font-mono text-accent">100%</span>
-          </div>
         </div>
 
-        <div className="mt-4 p-3 bg-warning/10 border border-warning/20 rounded-lg">
+        <div className="mt-4 p-3 bg-primary/10 border border-primary/20 rounded-lg">
           <div className="flex items-start gap-2">
-            <TrendingUp className="w-4 h-4 text-warning mt-0.5" />
-            <p className="text-xs text-warning">
-              Yangon demand ({(49511).toLocaleString()} MWh) far exceeds SMR capacity. 
-              <span className="font-semibold"> Zero surplus</span> to other regions.
+            <Zap className="w-4 h-4 text-primary mt-0.5" />
+            <p className="text-xs text-muted-foreground">
+              <span className="text-foreground font-medium">Transmission & Distribution Losses:</span>{" "}
+              Approximately {(100 - powerCalc.efficiency).toFixed(1)}% of generated power is lost during transmission 
+              and distribution due to electrical resistance in power lines and equipment. Losses increase with distance.
             </p>
           </div>
         </div>
