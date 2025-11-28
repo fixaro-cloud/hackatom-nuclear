@@ -268,15 +268,15 @@ export function MyanmarMap({ selectedSite, onSiteSelect }: MyanmarMapProps) {
               className="map-label map-label--transparent"
             >
               <span style={getCityLabelStyle(city.priority)}>
-                {city.name}
+                ~{city.name}
               </span>
             </Tooltip>
             <Popup>
               <div className="text-sm">
-                <strong className="text-foreground">{city.name}</strong>
+                <strong className="text-foreground">~{city.name}</strong>
                 <br />
                 <span className="text-muted-foreground">
-                  Demand: {city.demandMWh.toLocaleString()} MWh/day
+                  Demand: {city.demandMWh.toLocaleString()} ± {city.deviationMWh.toLocaleString()} MWh/day
                 </span>
                 <br />
                 <span className="text-muted-foreground">

@@ -1,4 +1,5 @@
 import { Atom, MapPin, BarChart3 } from "lucide-react";
+import { loadCenters } from "@/data/smrData";
 
 export function Header() {
   return (
@@ -26,10 +27,10 @@ export function Header() {
         </div>
         <div className="flex items-center gap-2 text-sm">
           <BarChart3 className="w-4 h-4 text-accent" />
-          <span className="text-muted-foreground">7 Load Centers</span>
+          <span className="text-muted-foreground">{loadCenters.length} Load Centers</span>
         </div>
         <div className="px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-          <span className="text-sm font-semibold text-primary">300 MW</span>
+          <span className="text-sm font-semibold text-primary">200 MW</span>
           <span className="text-xs text-muted-foreground ml-1">Fixed Capacity</span>
         </div>
       </div>

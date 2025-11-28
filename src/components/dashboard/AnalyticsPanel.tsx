@@ -4,6 +4,7 @@ import {
   CandidateSite, 
   calculateEffectivePower,
   DAILY_GENERATION_TARGET,
+  SMR_CAPACITY_MW,
   yangonHub,
   loadCenters
 } from "@/data/smrData";
@@ -34,9 +35,10 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
   ];
 
   // Top load centers for comparison
-  const topLoadCenters = loadCenters.slice(0, 7).map(lc => ({
+  const topLoadCenters = loadCenters.slice(0, 13).map(lc => ({
     name: lc.name.split(" ")[0],
     demand: lc.demandMWh,
+    deviation: lc.deviationMWh,
   }));
 
   return (
@@ -48,7 +50,7 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
             <Battery className="w-4 h-4 text-primary" />
             <span className="stat-label">SMR Capacity</span>
           </div>
-          <div className="stat-value text-primary">300</div>
+          <div className="stat-value text-primary">{SMR_CAPACITY_MW}</div>
           <div className="text-xs text-muted-foreground">MW</div>
         </div>
         
@@ -57,7 +59,7 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
             <Zap className="w-4 h-4 text-accent" />
             <span className="stat-label">Daily Output</span>
           </div>
-          <div className="stat-value text-accent">7,200</div>
+          <div className="stat-value text-accent">{DAILY_GENERATION_TARGET.toLocaleString()}</div>
           <div className="text-xs text-muted-foreground">MWh</div>
         </div>
         
@@ -118,16 +120,16 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
       {/* Regional Demand Distribution */}
       <div className="dashboard-card p-4">
         <h3 className="text-sm font-semibold text-foreground mb-4">
-          Regional Daily Demand (Top 7)
+          Regional Daily Demand (Top 13)
         </h3>
         
         <div className="space-y-3">
           {topLoadCenters.map((lc, index) => (
             <div key={lc.name}>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-sm text-muted-foreground">{lc.name}</span>
+                <span className="text-sm text-muted-foreground">~{lc.name} </span>
                 <span className="text-sm font-mono text-foreground">
-                  {lc.demand.toLocaleString()} MWh
+                  {lc.demand.toLocaleString()} ± {lc.deviation.toLocaleString()} MWh
                 </span>
               </div>
               <div className="h-2 bg-secondary rounded-full overflow-hidden">
@@ -151,7 +153,7 @@ export function AnalyticsPanel({ selectedSite }: AnalyticsPanelProps) {
             Strategic Summary
           </h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            The <span className="text-foreground font-medium">300MW Russian-designed SMR</span> at{" "}
+            The <span className="text-foreground font-medium">200MW Russian-designed SMR</span> at{" "}
             <span className="text-accent font-medium">{selectedSite.name}</span> will provide 
             critical baseload power to the <span className="text-primary">Thilawa industrial hub</span>, 
             covering approximately{" "}

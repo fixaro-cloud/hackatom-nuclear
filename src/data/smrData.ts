@@ -1,6 +1,6 @@
 // Global Constants
-export const SMR_CAPACITY_MW = 300;
-export const DAILY_GENERATION_TARGET = 7200; // 300MW * 24h
+export const SMR_CAPACITY_MW = 200;
+export const DAILY_GENERATION_TARGET = 4800; // 200MW * 24h
 
 // Candidate Sites (Supply Side)
 export interface EconomicFactor {
@@ -157,18 +157,24 @@ export interface LoadCenter {
   lat: number;
   lng: number;
   demandMWh: number;
+  deviationMWh: number; // Approximate deviation/variability in demand
   priority: number;
 }
 
 export const loadCenters: LoadCenter[] = [
-  { id: "yangon", name: "Yangon (Thilawa)", lat: 16.63, lng: 96.27, demandMWh: 3200, priority: 1 },
-  { id: "mandalay", name: "Mandalay", lat: 21.98, lng: 96.08, demandMWh: 2035.2, priority: 2 },
-  { id: "naypyidaw", name: "Naypyidaw", lat: 19.76, lng: 96.07, demandMWh: 550, priority: 3 },
-  { id: "mawlamyine", name: "Mawlamyine", lat: 16.49, lng: 97.63, demandMWh: 120, priority: 4 },
-  { id: "bago", name: "Bago", lat: 17.32, lng: 96.47, demandMWh: 100, priority: 5 },
-  { id: "pathein", name: "Pathein", lat: 16.78, lng: 94.74, demandMWh: 70, priority: 6 },
-  { id: "dawei", name: "Dawei", lat: 14.08, lng: 98.20, demandMWh: 55, priority: 7 },
-  { id: "taunggyi", name: "Taunggyi", lat: 20.78, lng: 97.03, demandMWh: 24.167, priority: 8 },
+  { id: "yangon", name: "Yangon (Thilawa)", lat: 16.63, lng: 96.27, demandMWh: 1547, deviationMWh: 490, priority: 1 },
+  { id: "mandalay", name: "Mandalay", lat: 21.98, lng: 96.08, demandMWh: 508, deviationMWh: 143, priority: 2 },
+  { id: "naypyidaw", name: "Naypyidaw", lat: 19.76, lng: 96.07, demandMWh: 292, deviationMWh: 82, priority: 3 },
+  { id: "mawlamyine", name: "Mawlamyine", lat: 16.49, lng: 97.63, demandMWh: 228, deviationMWh: 57, priority: 4 },
+  { id: "bago", name: "Bago", lat: 17.32, lng: 96.47, demandMWh: 124, deviationMWh: 47.4, priority: 5 },
+  { id: "pathein", name: "Pathein", lat: 16.78, lng: 94.74, demandMWh: 124, deviationMWh: 46.2, priority: 6 },
+  { id: "dawei", name: "Dawei", lat: 14.08, lng: 98.20, demandMWh: 120.4, deviationMWh: 45.8, priority: 7 },
+  { id: "taunggyi", name: "Taunggyi", lat: 20.78, lng: 180.5, demandMWh: 108, deviationMWh: 31.2, priority: 8 },
+  { id: "magway", name: "Magway", lat: 20.1491, lng: 94.9214, demandMWh: 95, deviationMWh: 26.7, priority: 9 },
+  { id: "thanlyin", name: "Thanlyin", lat: 16.7689, lng: 96.2475, demandMWh: 75, deviationMWh: 18.3, priority: 10 },
+  { id: "twante", name: "Twante", lat: 16.7105, lng: 95.9287, demandMWh: 45, deviationMWh: 12.9, priority: 11 },
+  { id: "myawaddy", name: "Myawaddy", lat: 16.6891, lng: 98.5085, demandMWh: 55, deviationMWh: 19.5, priority: 12 },
+  { id: "ye", name: "Ye", lat: 15.2533, lng: 97.8675, demandMWh: 60, deviationMWh: 17.4, priority: 13 },
 ];
 
 // Yangon Hub (primary destination)
